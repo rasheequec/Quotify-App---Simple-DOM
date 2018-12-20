@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>  </title>
+    </head>
+    <body>
+        <h1><center>QUOTIFY</center></h1>
+        <a href = "randomQuote-api.html">Random Quote(API)</a>&nbsp;&nbsp;
+        <a href = "randomQuote-local.html">Random Quote(Local)</a>&nbsp;&nbsp;
+        <a href = "addQuote.html">Add Quote</a> &nbsp;&nbsp;
+        <a href ="allQuote.html">List all quotes(Local)</a>
+        <p id = "paragraph"></p>
+        <center><button id = "anotherQuote">Get another Quote</button></center>
+        <button id = "save" onclick = "saveButton()">Save to Local</button>
+
+        <script>
+
+            
+            const paraHandle = document.getElementById('paragraph');
+            const anotherQuoteHandle = document.getElementById('anotherQuote');
+            const saveButtonHandle = document.getElementById('save');
+            const xhr = new XMLHttpRequest();
+            let data;
+            
+            function apiCall(){
+              xhr.open('GET','https://talaikis.com/api/quotes/random/');            
+              xhr.onload = function(){
+              data = JSON.parse(xhr.responseText);
+              paraHandle.innerHTML = `${data.quote} - ${data.author}`;
+            }
+            xhr.send();
+            }
+            apiCall();
+
+
+            anotherQuoteHandle.addEventListener('click',function(){
+                apiCall();
+                saveButtonHandle.disabled = false;
+                saveButtonHandle.innerText = 'Save to Local'
+               
+            }
+            ,false)
+
+            let quotes = localStorage.getItem('quotes') ? JSON.parse(localStorage.getItem('quotes')) : [];
+            localStorage.setItem('quotes',JSON.stringify(quotes));
+           
+            function saveButton(){
+                 let quote = {quote: data.quote, author: data.author}; 
+                 let quoteStorage = JSON.parse(localStorage.getItem('quotes'));
+                 quoteStorage.push(quote);                 
+                 localStorage.setItem('quotes',JSON.stringify(quoteStorage));
+                 console.log(quoteStorage);
+                 saveButtonHandle.innerText = 'saved';
+                 saveButtonHandle.disabled = true;
+
+            }
+           
+
+            
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>  </title>
+    </head>
+    <body>
+        <h1><center>QUOTIFY</center></h1>
+        <a href = "randomQuote-api.html">Random Quote(API)</a>&nbsp;&nbsp;
+        <a href = "randomQuote-local.html"id = "local">Random Quote(Local)</a>&nbsp;&nbsp;
+        <a href = "addQuote.html">Add Quote</a> &nbsp;&nbsp;
+        <a href ="allQuote.html">List all quotes(Local)</a>
+        <p id = "quote"></p>
+        <center><button id = "btn" onclick="local()">Get another Quote</button></center>
+        
+
+        <script>
+         
+            const pHandle = document.getElementById('quote');
+            const bHandle = document.getElementById('btn');
+            const sHandle = document.getElementById('save');
+            const link1Handle = document.getElementById('local');
+         
+ 
+            let quotes = localStorage.getItem('quotes') ? JSON.parse(localStorage.getItem('quotes')) : [];
+            localStorage.setItem('quotes',JSON.stringify(quotes));
+        
+
+           function local(){
+            let quoteStorage = JSON.parse(localStorage.getItem('quotes'));
+            console.log(quoteStorage);
+            const randIndex = Math.floor(Math.random() * quoteStorage.length);
+            console.log(randIndex);
+            var random = quoteStorage[randIndex];
+            pHandle.innerText = `${random.quote} - ${random.author}`
+
+           }
+           local();
+            
+
+        </script>
+    </body>
+</html>

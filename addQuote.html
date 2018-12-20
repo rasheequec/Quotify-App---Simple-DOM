@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>  </title>
+    </head>
+    <body>
+        <h1><center>QUOTIFY</center></h1>
+        <a href = "randomQuote-api.html">Random Quote(API)</a>&nbsp;&nbsp;
+        <a href = "randomQuote-local.html"id = "local">Random Quote(Local)</a>&nbsp;&nbsp;
+        <a href = "addQuote.html">Add Quote</a> &nbsp;&nbsp;
+        <a href ="allQuote.html">List all quotes(Local)</a><br/><br/>
+        <form>
+        <center><textarea rows = "10" cols="30" id = 'textquote'></textarea></center>;
+        <center><textarea rows = "2" cols="30" id = 'textauther'></textarea></center>;
+        <center><button id="saveButton">Save</button></center>
+        </form>
+     
+      <script>
+    
+
+            
+            const textquoteHandle = document.getElementById('textquote');
+            const textautherHandle = document.getElementById('textauther');
+            const saveHandle = document.getElementById('saveButton');
+
+         
+         let quotes = localStorage.getItem('quotes') ? JSON.parse(localStorage.getItem('quotes')) : [];
+            localStorage.setItem('quotes',JSON.stringify(quotes));
+
+            saveHandle.addEventListener('click',function(){
+                let quote = {quote: textquoteHandle.value, author: textautherHandle.value};;
+     
+                let quoteStorage = JSON.parse(localStorage.getItem('quotes'));
+                quoteStorage.push(quote);
+                localStorage.setItem('quotes',JSON.stringify(quoteStorage));
+                alert("Your Quote Saved");
+                
+
+            })
+           
+      
+           
+
+            
+
+        </script>
+    </body>
+</html>
